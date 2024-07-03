@@ -16,16 +16,24 @@ public:
 
 	GuessResult guess(const string& guessNumber) {
 		assertIllegalArgument(guessNumber);
+		GuessResult result = { false, 0, 0 };
 		if (guessNumber == question) {
 			return { true, 3, 0 };
 		}
-		return { false, 0, 0 };
+		else {
+			for (int i = 0; i < MAX_COUNT; i++) {
+				if (guessNumber[i] == question[i]) {
+					result.strikes++;
+				}
+			}
+		}
+		return result;
 	}
 
 private:
 	void assertIllegalArgument(const string& guessNumber) {
 
-		if (guessNumber.length() != 3) {
+		if (guessNumber.length() != MAX_COUNT) {
 			throw length_error("Must be three letters.");
 		}
 		for (char ch : guessNumber) {
@@ -41,5 +49,6 @@ private:
 			|| guessNumber[1] == guessNumber[2]);
 	}
 
+	const int MAX_COUNT = 3;
 	string question;
 };
