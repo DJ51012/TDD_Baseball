@@ -22,8 +22,14 @@ public:
 		}
 		else {
 			for (int i = 0; i < MAX_COUNT; i++) {
-				if (guessNumber[i] == question[i]) {
-					result.strikes++;
+				for (int j = 0; j < MAX_COUNT; j++) {
+					if (guessNumber[i] == question[j]) {
+						if (i == j)
+							result.strikes++;
+						else
+							result.balls++;
+						break;
+					}
 				}
 			}
 		}
